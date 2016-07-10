@@ -10,7 +10,8 @@ class IPLogRESTTest(APITestCase):
 
     def test_structure(self):
         '''Ensure that GET returns a list containing one element after
-        one POST request
+        one POST request. Ensure that element structure is
+        {'ip': ..., 'request_dt': ...}
         '''
         self.client.post('/ip')
         response = self.client.get('/ip')

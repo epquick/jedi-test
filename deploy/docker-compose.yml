@@ -1,0 +1,28 @@
+nginx:
+  image: nginx
+  hostname: nginx-host
+  ports: 
+   - "80:80"
+  volumes:
+   - ./nginx-conf.d/:/etc/nginx/conf.d/
+   - ../:/home/docker/code/
+  links:
+   - code
+
+postgres:
+  image: postgres
+  hostname: postgres-host
+  ports: 
+   - "5432"
+
+code:
+  build: .   
+  hostname: code-host
+  volumes:
+   - ../:/home/docker/code/
+  ports:
+   - "8000:8000"
+  command: /bin/bash /home/docker/code/deploy/entry-point.sh
+  links:
+   - postgres
+

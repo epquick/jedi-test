@@ -11,7 +11,7 @@ COMPRESS_ENABLED = not DEBUG
 ALLOWED_HOSTS = ['*']
 
 # Absolute paths for where the project and templates are stored.
-ABS_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
+ABS_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 ABS_TEMPLATES_PATH = os.path.join(ABS_ROOT, 'templates')
 
 # add root directory to PYTHONPATH
@@ -81,7 +81,7 @@ USE_TZ = True
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    #'compressor.finders.CompressorFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -118,10 +118,10 @@ TEMPLATE_DIRS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     # default template context processors
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
+    'django.template.context_processors.debug',
+    'django.template.context_processors.i18n',
+    'django.template.context_processors.media',
+    'django.template.context_processors.static',
 )
 
 # django
@@ -138,8 +138,38 @@ INSTALLED_APPS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'database',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'postgres-host',
+        'PORT': 5432,
+    }
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s %(levelname)s %(name)s %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(ABS_ROOT, 'iplog.log'),
+            'maxBytes': 1024 * 1024 * 5, # 5 MB
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
     }
 }
 
