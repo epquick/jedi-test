@@ -14,9 +14,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ClientIP',
+            name='RequestLog',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('ip', models.GenericIPAddressField()),
                 ('request_dt', models.DateTimeField(auto_now_add=True)),
             ],

@@ -107,10 +107,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'ip_log.urls'
 
-# Python dotted path to the WSGI application used by Django's runserver.
-# disabled - outsite the app
-WSGI_APPLICATION = 'wsgihandler.application'
-
 TEMPLATE_DIRS = (
     # Put strings here, like "/root_admin/html/django_templates"
     # or "C:/www/django/templates".
@@ -128,34 +124,17 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
 )
 
-# APPS
-# django debugging stuff
-ADMIN_TOOL_APPS = (
-)
-
 # django
-CORE_APPS = (
+INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # django admin
-    'django.contrib.admin',
-    'django.contrib.admindocs',
-)
-
-EXTERNAL_APPS = (
-)
-
-LOCAL_APPS = (
     'rest_framework',
     'ip_log',
 )
-
-# the order is important!
-INSTALLED_APPS = ADMIN_TOOL_APPS + LOCAL_APPS + CORE_APPS + EXTERNAL_APPS
 
 DATABASES = {
     'default': {
@@ -164,10 +143,7 @@ DATABASES = {
     }
 }
 
-CELERY_CONNECTION = 'amqp://guest@192.168.0.105//'
-
-MEMCACHED_SERVERS = ['192.168.0.105:11211']
-
+IP_LOG_DEFAULT_LIMIT = 1000
 IP_LOG_MAX_LIMIT = 1000
 
 
